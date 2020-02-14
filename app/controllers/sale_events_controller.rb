@@ -1,0 +1,2 @@
+class SaleEventsController < ApplicationController
+end

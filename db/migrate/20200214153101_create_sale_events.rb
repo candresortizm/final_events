@@ -1,6 +1,6 @@
-class CreateEvents < ActiveRecord::Migration[6.0]
+class CreateSaleEvents < ActiveRecord::Migration[6.0]
   def change
-    create_table :events do |t|
+    create_table :sale_events do |t|
       t.string :title, null: false
       t.string :description
       t.string :image, null: false
