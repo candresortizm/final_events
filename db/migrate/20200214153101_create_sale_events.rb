@@ -6,7 +6,7 @@ class CreateSaleEvents < ActiveRecord::Migration[6.0]
       t.string :image, null: false
       t.string :place
       t.datetime :event_date, null: false
-      t.references :owner, index: true, foreign_key: {to_table: :users}
+      t.references :admin, index: true, foreign_key: {to_table: :users}
 
       t.timestamps
     end

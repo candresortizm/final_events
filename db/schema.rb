@@ -41,10 +41,10 @@ ActiveRecord::Schema.define(version: 2020_02_14_160005) do
     t.string "image", null: false
     t.string "place"
     t.datetime "event_date", null: false
-    t.bigint "owner_id"
+    t.bigint "admin_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["owner_id"], name: "index_sale_events_on_owner_id"
+    t.index ["admin_id"], name: "index_sale_events_on_admin_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -63,5 +63,5 @@ ActiveRecord::Schema.define(version: 2020_02_14_160005) do
   add_foreign_key "location_types", "sale_events"
   add_foreign_key "reservations", "location_types"
   add_foreign_key "reservations", "users", column: "client_id"
-  add_foreign_key "sale_events", "users", column: "owner_id"
+  add_foreign_key "sale_events", "users", column: "admin_id"
 end
