@@ -1,4 +1,6 @@
 <h1>Eventos</h1>
-<% @sale_events.each do  |event|%>
-  <%= render "event_card" , event: event%>
-<%end%>
+<section class="events_container">
+  <% @sale_events.each do  |event|%>
+    <%= render "event_card" , event: event%>
+  <%end%>
+</section>

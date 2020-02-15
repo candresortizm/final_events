@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  devise_for :user, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
 
   scope :sale_events, controller: :sale_events do
     get :new, as: 'new_sale_event'
