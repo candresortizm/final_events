@@ -40,12 +40,43 @@ class SaleEventsController < ApplicationController
   end
 
   def edit
+    begin
+      ActiveRecord::Base.transaction do
+        @sale_event = SaleEvent.find(params[:event_id])
+      end
+    rescue Exception => exc
+      flash[:danger] = exc.message
+      redirect_to root_path
+    end
   end
 
   def show
+    begin
+      ActiveRecord::Base.transaction do
+        @sale_event = SaleEvent.find(params[:event_id])
+      end
+    rescue Exception => exc
+      flash[:danger] = exc.message
+      redirect_to root_path
+    end
   end
 
   def update
+    begin
+      ActiveRecord::Base.transaction do
+        if current_user.type.eql?("Admin")
+          sale_event = SaleEvent.find(sale_event_params[:id])
+          sale_event.update(sale_event_params)
+          redirect_to root_path
+        else
+          flash[:warning] = "No está autorizado"
+          redirect_to root_path
+        end
+      end
+    rescue Exception => exc
+      flash[:danger] = exc.message
+      redirect_to root_path
+    end
   end
 
   private
@@ -56,6 +87,7 @@ class SaleEventsController < ApplicationController
       :title,
       :event_date,
       :place,
+      :description,
       :image
     )
   end

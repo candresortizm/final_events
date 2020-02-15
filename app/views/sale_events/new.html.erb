@@ -20,9 +20,38 @@
     <%= f.label(:event_date, "Fecha") %>
     <%= f.datetime_field :event_date, required: true %>
   </div>
-  <div class="col-md-6 col-sm-12 form-group clase_x">
+  <div class="col-md-6 col-sm-12 form-group clase_x upload carthumb photoshoot__upload">
     <%= f.label(:image, "Imagen") %>
     <%= f.file_field :image, required: true %>
+    <%if !@sale_event.image.present?%>
+      <img class="img-thumbnail center-block" alt="your image" target="_blank" src="" style="display: none;">
+    <%else%>
+      <img class="img-thumbnail center-block" alt="your image" target="_blank" src="<%=@sale_event.image.url%>">
+    <%end%>
   </div>
   <%= submit_tag("Finalizar") %>
 <% end %>
+<script type="text/javascript">
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            // Remove class upload, the one that has the background image
+            var $parent = $(input).closest('div.carthumb');
+            $($parent).removeClass("upload");
+            // Show the img tag
+            $($parent).find('img').show();
+
+            // Change the src of the img tag to the img loaded
+            $($parent).find('img').attr('src', reader.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  // Everytime the [input:file] change do
+  $(":file").change(function(){
+      readURL(this);
+  });
+</script>

@@ -1,0 +1,9 @@
+<img class="img-thumbnail center-block" alt="your image" src="<%=event.image.url%>">
+<h2><%=event.title%></h2>
+<h3><%=event.place%></h3>
+<h3><%=event.event_date%></h3>
+<%if current_user && current_user.type.eql?("Admin")%>
+  <a class="btn btn-primary" href="<%= edit_sale_event_path(event) %>" role="button">Editar evento</a>
+<%else%>
+  <a class="btn btn-primary" href="<%= show_sale_event_path(event) %>" role="button">Ver evento</a>
+<%end%>

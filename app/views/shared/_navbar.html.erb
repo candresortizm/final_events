@@ -8,11 +8,7 @@
       <%if !current_user.nil?%>
         <%if current_user.type.eql?("Admin")%>
           <%= link_to('Nuevo Evento', new_sale_event_path, method: :get, class:"nav-item nav-link") %>
-          <%= link_to('Listado de eventos', sale_events_index_path, method: :get, class:"nav-item nav-link") %>
-        <%else%>
-          <p>Nada acá</p>
         <%end%>
-
       <%end%>
     </div>
     <ul class="navbar-nav ml-auto">
