@@ -1,24 +1,14 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Proyecto de una plataforma en la que se publican eventos y las personas interesadas pueden adquirir us entradas a los mismos. CRUD de eventos, registro de usuarios, carga de imágenes a un bucket de AWS S3.
 
-Things you may want to cover:
+El proyecto se puede ver en acción en el siguiente enlace:
+http://ec2-3-20-229-128.us-east-2.compute.amazonaws.com/
 
-* Ruby version
+Actualmente no cuenta con el registro de usuarios admistradores para crear eventos, para crear o modificar un evento ingrese con estas credenciales:
 
-* System dependencies
+email: admin@events.com
+contraseña: password
 
-* Configuration
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+El proyecto se encuentra desarrollado en ruby 2.5.2 con versiòn bundle 1.16.6
