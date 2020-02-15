@@ -26,7 +26,6 @@ class SaleEventsController < ApplicationController
         if current_user.type.eql?("Admin")
           @sale_event = SaleEvent.new(sale_event_params)
           @sale_event.admin_id = current_user.id
-          binding.pry
           @sale_event.save!
           redirect_to root_path
         else
@@ -41,9 +40,6 @@ class SaleEventsController < ApplicationController
   end
 
   def edit
-  end
-
-  def index
   end
 
   def show

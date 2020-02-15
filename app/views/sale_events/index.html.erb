@@ -1,6 +1,9 @@
 <h1>Acá va el listado</h1>
 <% @sale_events.each do  |event|%>
+  <a href="<%=event.image.url%>" target="_blank">
+    <img class="img-thumbnail center-block" alt="your image" src="<%=event.image.url%>">
+  </a>
   <h2><%=event.title%></h2>
   <h3><%=event.place%></h3>
-  <h3><%=event.date%></h3>
+  <h3><%=event.event_date%></h3>
 <%end%>
