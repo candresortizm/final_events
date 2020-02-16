@@ -88,7 +88,12 @@ class SaleEventsController < ApplicationController
       :event_date,
       :place,
       :description,
-      :image
+      :image,
+      location_types_attributes: [
+        :name,
+        :price,
+        :quantity
+      ]
     )
   end
 

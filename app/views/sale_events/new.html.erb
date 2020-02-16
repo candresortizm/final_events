@@ -29,7 +29,14 @@
       <img class="img-thumbnail center-block" alt="your image" target="_blank" src="<%=@sale_event.image.url%>">
     <%end%>
   </div>
-  <br>
+  <div class="col-12 location_event">
+    <div class="locations_container">
+      <% @count_locations=0 %>
+      <%=hidden_field_tag :count_locations, @count_locations%>
+      <%= render "new_location_event", index:@count_locations%>
+    </div>
+    <button type="button" name="button">Añadir una locación al evento</button>
+  </div>
   <%= submit_tag("Finalizar") %>
 <% end %>
 <script type="text/javascript">
@@ -54,5 +61,12 @@
   // Everytime the [input:file] change do
   $(":file").change(function(){
       readURL(this);
+  });
+
+  // Click
+  $(".location_event button").click(function(){
+    let temp=document.querySelector(".locations_container #count_locations").value+1;
+    document.querySelector(".locations_container #count_locations").value = temp;
+    $(".locations_container").append("<%= j(render partial: 'new_location_event', locals:{index:@count_locations+1}) %>");
   });
 </script>
