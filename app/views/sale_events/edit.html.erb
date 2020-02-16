@@ -30,6 +30,10 @@
       <img class="img-thumbnail center-block" alt="your image" target="_blank" src="<%=@sale_event.image.url%>">
     <%end%>
   </div>
+  <div class="col-12 location_event">
+    <%= render "new_location_event", event: f%>
+    <button type="button" name="button">Añadir una locación al evento</button>
+  </div>
   <%= submit_tag("Finalizar") %>
 <% end %>
 

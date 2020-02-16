@@ -1,0 +1,23 @@
+<%= fields_for :location_types, @sale_event.location_types.build do |location_type| %>
+  <div class="col-md-6 col-sm-12 form-group clase_x">
+    <%= location_type.label(:name, "Nombre de la locación") %>
+    <%= text_field_tag :name, nil ,
+        {name:"sale_event[location_types_attributes][#{index}][name]",
+        id:"sale_event_location_types_attributes_#{index}_name",
+          required: true, type: "text"}%>
+  </div>
+  <div class="col-md-6 col-sm-12 form-group clase_x">
+    <%= location_type.label(:price, "Precio") %>
+    <%= text_field_tag :price, nil ,
+        {name:"sale_event[location_types_attributes][#{index}][price]",
+        id:"sale_event_location_types_attributes_#{index}_price",
+          required: true, type: "number"}%>
+  </div>
+  <div class="col-md-6 col-sm-12 form-group clase_x">
+    <%= location_type.label(:quantity, "Cantidad") %>
+    <%= text_field_tag :quantity, nil ,
+        {name:"sale_event[location_types_attributes][#{index}][quantity]",
+        id:"sale_event_location_types_attributes_#{index}_quantity",
+          required: true, type: "number"}%>
+  </div>
+<%end%>
