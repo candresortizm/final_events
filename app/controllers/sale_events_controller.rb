@@ -42,7 +42,8 @@ class SaleEventsController < ApplicationController
   def edit
     begin
       ActiveRecord::Base.transaction do
-        @sale_event = SaleEvent.find(params[:event_id])
+        @sale_event = SaleEvent.includes(:location_types).find(params[:event_id])
+        @location_types = @sale_event.location_types.map{|location| [location.id,location]}.to_h
       end
     rescue Exception => exc
       flash[:danger] = exc.message
@@ -90,9 +91,11 @@ class SaleEventsController < ApplicationController
       :description,
       :image,
       location_types_attributes: [
+        :id,
         :name,
         :price,
-        :quantity
+        :quantity,
+        :_destroy
       ]
     )
   end

@@ -33,9 +33,9 @@
     <div class="locations_container">
       <% @count_locations=0 %>
       <%=hidden_field_tag :count_locations, @count_locations%>
-      <%= render "new_location_event", index:@count_locations%>
+      <%= render "new_location_event", index:@count_locations, location_type: nil%>
     </div>
-    <button type="button" name="button">Añadir una locación al evento</button>
+    <button id="add_new_location" type="button" name="button">Añadir una locación al evento</button>
   </div>
   <%= submit_tag("Finalizar") %>
 <% end %>
@@ -63,10 +63,28 @@
       readURL(this);
   });
 
-  // Click
-  $(".location_event button").click(function(){
+  var location_counter = 1;
+
+  // Click at "Añadir una locación al evento" button
+  $("button#add_new_location").click(function(){
     let temp=document.querySelector(".locations_container #count_locations").value+1;
     document.querySelector(".locations_container #count_locations").value = temp;
-    $(".locations_container").append("<%= j(render partial: 'new_location_event', locals:{index:@count_locations+1}) %>");
+    $(".locations_container").append("<%= j(render partial: 'new_location_event', locals:{index:@count_locations+1, location_type: nil}) %>");
+    var input_elements = document.querySelectorAll(".locations_container .new_location_type:nth-last-child(1) input");
+    Array.from(input_elements).forEach(function(e,i,a){
+      e.name=e.name.replace("1", location_counter);
+      e.id=e.id.replace("1", location_counter);
+    });
+    location_counter += 1;
   });
+
+  function buildNewLocationFields(){
+
+  }
+
+  // Click at "" button
+  function removeLocation(element){
+    document.querySelector(".locations_container").removeChild(element.parentNode);
+  }
+
 </script>

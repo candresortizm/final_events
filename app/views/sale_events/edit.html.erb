@@ -31,8 +31,14 @@
     <%end%>
   </div>
   <div class="col-12 location_event">
-    <%= render "new_location_event", event: f%>
-    <button type="button" name="button">Añadir una locación al evento</button>
+    <div class="locations_container">
+      <% @count_locations = @sale_event.location_types.size %>
+      <%=hidden_field_tag :count_locations, @count_locations%>
+      <%@sale_event.location_types.each_with_index do |location_type,index|%>
+        <%= render "new_location_event", index: index, location_type: location_type%>
+      <%end%>
+    </div>
+    <button id="add_new_location" type="button" name="button">Añadir una locación al evento</button>
   </div>
   <%= submit_tag("Finalizar") %>
 <% end %>
@@ -60,4 +66,40 @@
   $(":file").change(function(){
       readURL(this);
   });
+
+
+  var location_counter = 1;
+
+  // Click at "Añadir una locación al evento" button
+  $("button#add_new_location").click(function(){
+    let temp=document.querySelector(".locations_container #count_locations").value+1;
+    document.querySelector(".locations_container #count_locations").value = temp;
+    $(".locations_container").append("<%= j(render partial: 'new_location_event', locals:{index:@count_locations+1, location_type: nil}) %>");
+    var input_elements = document.querySelectorAll(".locations_container .new_location_type:nth-last-child(1) input");
+    Array.from(input_elements).forEach(function(e,i,a){
+      e.name=e.name.replace("1", location_counter);
+      e.id=e.id.replace("1", location_counter);
+    });
+    location_counter += 1;
+  });
+
+  // Click at "" button
+  function removeLocation(element){
+    var location_form = element.parentNode;
+    if(location_form.querySelector("input[type='hidden']")){
+      var input_hidden = document.createElement("input");
+      input_hidden.setAttribute("type", "hidden");
+      var copy_name = location_form.querySelector("input[type='number']").name;
+      var copy_id = location_form.querySelector("input[type='number']").id;
+      var id_to_delete = location_form.querySelector("input[type='hidden']").value;
+      copy_name = copy_name.replace("price","_destroy");
+      input_hidden.setAttribute("name", copy_name);
+      input_hidden.setAttribute("value", id_to_delete);
+      location_form.appendChild(input_hidden);
+      location_form.style.display = 'none';
+    }else{
+      location_form.parentNode.removeChild(location_form);
+    }
+  }
+
 </script>
