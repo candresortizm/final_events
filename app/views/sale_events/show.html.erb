@@ -1,5 +1,35 @@
-<img class="img-thumbnail center-block" alt="your image" src="<%=@sale_event.image.url%>">
-<h2><%=@sale_event.title%></h2>
-<h3><%=@sale_event.place%></h3>
-<h3><%=@sale_event.event_date%></h3>
-<a href="#">COMPRAR</a>
+<section class="sale_event_show">
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+      <img class="img-thumbnail center-block" alt="your image" src="<%=@sale_event.image.url%>">
+    </div>
+    <div class="col-lg-6 col-sm-12 text_container">
+      <h1><%=@sale_event.title%></h1>
+      <h3><%=@sale_event.place%></h3>
+      <h3><%=@sale_event.event_date.strftime("%-d/%b/%Y %l:%M %P")%></h3>
+      <p><%=@sale_event.description%></p>
+    </div>
+  </div>
+  <br>
+  <%if !current_user.nil? %>
+    <%= form_for @reservation,
+        url:create_reservation_path, method: :post,
+        id: "reservation_form",
+        :html => {class: 'new_reservation row'} do |f|%>
+      <div class="col-12 location_event">
+        <%=f.select :location_type_id, options_for_select(@sale_event.location_types.collect { |location| ["#{location.name} - $#{location.price.to_i}", location.id] }),
+        {include_blank: "Selecciona una locación"}, required: true%>
+        <%=f.select :quantity, (1..10).map{|element| [element,element]}, include_blank: false, required: true%>
+      </div>
+      <br>
+      <div class="col-12">
+        <%= submit_tag("Comprar") %>
+      </div>
+    <%end%>
+  <%else%>
+    <%@sale_event.location_types.each do |location_type|%>
+      <span><%=location_type.name%> - $<%=location_type.price.to_i%></span><br>
+    <%end%>
+    <%= link_to('Iniciar sesión', new_user_session_path, method: :get, class:"btn btn-outline-success") %>
+  <%end%>
+</section>

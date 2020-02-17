@@ -4,25 +4,26 @@
     url:create_sale_event_path, method: :post,
     id: "sale_event_form",
     :html => {class: 'new_sale_event row'} do |f|%>
-  <div class="col-md-6 col-sm-12 form-group clase_x">
+  <div class="col-md-6 col-sm-12 form-group input_group">
     <%= f.label(:title, "Nombre del evento") %>
     <%= f.text_field :title, required: true %>
   </div>
-  <div class="col-md-6 col-sm-12 form-group clase_x">
+  <div class="col-md-6 col-sm-12 form-group input_group">
     <%= f.label(:place, "Lugar") %>
     <%= f.text_field :place, required: true %>
   </div>
-  <div class="col-md-6 col-sm-12 form-group clase_x">
+  <div class="col-md-6 col-sm-12 form-group input_group">
     <%= f.label(:description, "Descripción") %>
     <%= f.text_field :description, required: true %>
   </div>
-  <div class="col-md-6 col-sm-12 form-group clase_x">
+  <div class="col-md-6 col-sm-12 form-group input_group">
     <%= f.label(:event_date, "Fecha") %>
     <%= f.datetime_field :event_date, required: true %>
   </div>
-  <div class="col-md-6 col-sm-12 form-group clase_x upload carthumb photoshoot__upload">
+  <div class="col-md-6 col-sm-12 upload carthumb">
     <%= f.label(:image, "Imagen") %>
     <%= f.file_field :image, required: true %>
+    <br>
     <%if !@sale_event.image.present?%>
       <img class="img-thumbnail center-block" alt="your image" target="_blank" src="" style="display: none;">
     <%else%>
@@ -35,9 +36,11 @@
       <%=hidden_field_tag :count_locations, @count_locations%>
       <%= render "new_location_event", index:@count_locations, location_type: nil%>
     </div>
-    <button id="add_new_location" type="button" name="button">Añadir una locación al evento</button>
+    <button id="add_new_location" type="button" name="button" class="btn btn-outline-success btn-sm">Añadir una locación al evento</button>
   </div>
-  <%= submit_tag("Finalizar") %>
+  <div class="col-12">
+    <%= submit_tag("Finalizar") %>
+  </div>
 <% end %>
 <script type="text/javascript">
   function readURL(input) {
@@ -78,13 +81,9 @@
     location_counter += 1;
   });
 
-  function buildNewLocationFields(){
-
-  }
-
-  // Click at "" button
+  // Click at "Eliminar locación" button
   function removeLocation(element){
-    document.querySelector(".locations_container").removeChild(element.parentNode);
+    document.querySelector(".locations_container").removeChild($(element).closest(".new_location_type")[0]);
   }
 
 </script>

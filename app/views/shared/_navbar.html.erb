@@ -8,6 +8,9 @@
       <%if !current_user.nil?%>
         <%if current_user.type.eql?("Admin")%>
           <%= link_to('Nuevo Evento', new_sale_event_path, method: :get, class:"nav-item nav-link") %>
+          <%= link_to('Mis ventas', reservations_index_path, method: :get, class:"nav-item nav-link") %>
+        <%else%>
+          <%= link_to('Mis Compras', reservations_index_path, method: :get, class:"nav-item nav-link") %>
         <%end%>
       <%end%>
     </div>

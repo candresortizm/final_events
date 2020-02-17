@@ -13,5 +13,11 @@ Rails.application.routes.draw do
     post :create, as: 'create_sale_event'
     put :update, as: 'update_sale_event'
   end
+
+  scope :reservations, controller: :reservations do
+    post :create, as: 'create_reservation'
+    get :index, as: 'reservations_index'
+  end
+
   root "sale_events#index"
 end

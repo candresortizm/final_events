@@ -1,4 +1,4 @@
 class Reservation < ApplicationRecord
   belongs_to :location_type
-  belongs_to :clients
+  belongs_to :client
 end

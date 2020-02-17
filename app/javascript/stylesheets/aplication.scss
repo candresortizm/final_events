@@ -46,3 +46,17 @@ input[type="submit"]{
       align-self: center;
     }
 }
+
+.input_group{
+  display: flex;
+  justify-content: space-between;
+  input,select{
+    width: 100%;
+    padding-right: 20%;
+  }
+  label{
+    width: 100%;
+    text-align: center;
+    padding-right: 10px;
+  }
+}

@@ -1,27 +1,27 @@
-<h1>Editar evento</h1>
+<h1>Editar <%=@sale_event.title%></h1>
 
 <%= form_for @sale_event,
     url:update_sale_event_path, method: :put,
     id: "sale_event_form",
     :html => {class: 'new_sale_event row'} do |f|%>
   <%= f.hidden_field :id, value: @sale_event.id %>
-  <div class="col-md-6 col-sm-12 form-group clase_x">
+  <div class="col-md-6 col-sm-12 form-group input_group">
     <%= f.label(:title, "Nombre del evento") %>
     <%= f.text_field :title, value: @sale_event.title, required: true %>
   </div>
-  <div class="col-md-6 col-sm-12 form-group clase_x">
+  <div class="col-md-6 col-sm-12 form-group input_group">
     <%= f.label(:place, "Lugar") %>
     <%= f.text_field :place, value: @sale_event.place, required: true %>
   </div>
-  <div class="col-md-6 col-sm-12 form-group clase_x">
+  <div class="col-md-6 col-sm-12 form-group input_group">
     <%= f.label(:description, "Descripción") %>
     <%= f.text_field :description, value: @sale_event.description, required: true %>
   </div>
-  <div class="col-md-6 col-sm-12 form-group clase_x">
+  <div class="col-md-6 col-sm-12 form-group input_group">
     <%= f.label(:event_date, "Fecha") %>
     <%= f.datetime_field :event_date, value: @sale_event.event_date.strftime("%Y-%m-%dT%H:%M"), required: true %>
   </div>
-  <div class="col-md-6 col-sm-12 form-group clase_x upload carthumb photoshoot__upload">
+  <div class="col-md-6 col-sm-12 upload carthumb">
     <%= f.label(:image, "Imagen") %>
     <%= f.file_field :image %>
     <%if !@sale_event.image.present?%>
@@ -38,9 +38,11 @@
         <%= render "new_location_event", index: index, location_type: location_type%>
       <%end%>
     </div>
-    <button id="add_new_location" type="button" name="button">Añadir una locación al evento</button>
+    <button id="add_new_location" type="button" name="button" class="btn btn-outline-success btn-sm">Añadir una locación al evento</button>
   </div>
-  <%= submit_tag("Finalizar") %>
+  <div class="col-12">
+    <%= submit_tag("Finalizar") %>
+  </div>
 <% end %>
 
 <script type="text/javascript">
@@ -69,7 +71,6 @@
 
 
   var location_counter = 1;
-
   // Click at "Añadir una locación al evento" button
   $("button#add_new_location").click(function(){
     let temp=document.querySelector(".locations_container #count_locations").value+1;
@@ -83,9 +84,10 @@
     location_counter += 1;
   });
 
-  // Click at "" button
+  // Click at "Eliminar Locación" button
   function removeLocation(element){
-    var location_form = element.parentNode;
+    var location_form = $(element).closest(".new_location_type")[0];
+    //Validation if location in in DB add _destroy attribute and hide the fields for update
     if(location_form.querySelector("input[type='hidden']")){
       var input_hidden = document.createElement("input");
       input_hidden.setAttribute("type", "hidden");
@@ -97,8 +99,9 @@
       input_hidden.setAttribute("value", id_to_delete);
       location_form.appendChild(input_hidden);
       location_form.style.display = 'none';
+      // If the location_type isn't in DB only remove the form
     }else{
-      location_form.parentNode.removeChild(location_form);
+      $(location_form).closest(".locations_container")[0].removeChild(location_form);
     }
   }
 
