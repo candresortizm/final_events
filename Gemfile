@@ -25,7 +25,7 @@ gem 'pry'
 gem 'coffee-rails', '~> 4.2'
 
 # For Upload files
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave', '~> 2.0'
 gem 'mini_magick'
 gem 'carrierwave-aws'
 
